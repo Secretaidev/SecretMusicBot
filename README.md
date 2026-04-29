@@ -14,8 +14,7 @@
 [![Owner](https://img.shields.io/badge/Owner-black?style=for-the-badge&logo=telegram)](https://t.me/its_me_secret)
 
 
-[![Forks](https://img.shields.io/github/forks/Secretaidev
-/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/fork)
+[![Forks](https://img.shields.io/github/forks/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/fork)
 [![Stars](https://img.shields.io/github/stars/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/stargazers)
 [![Contributors](https://img.shields.io/github/contributors/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/graphs/contributors)
 
