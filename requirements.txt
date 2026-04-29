@@ -1,0 +1,11 @@
+pyrogram~=2.0.106
+tgcrypto
+pytgcalls
+youtube-search-python
+yt-dlp
+aiohttp
+aiofiles
+ffmpeg-python
+pillow
+psutil
+uvloop; sys_platform != 'win32'
