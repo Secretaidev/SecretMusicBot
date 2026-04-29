@@ -8,4 +8,5 @@ aiofiles
 ffmpeg-python
 pillow
 psutil
+motor
 uvloop; sys_platform != 'win32'

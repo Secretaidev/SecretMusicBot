@@ -19,6 +19,7 @@ import plugins.playlist
 import plugins.admin
 import plugins.voice_chat
 import plugins.lyrics
+import plugins.assistant_handler
 
 
 async def main():

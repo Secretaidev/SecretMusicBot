@@ -1,3 +1,4 @@
+import config
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from client.client import bot_client
@@ -14,7 +15,8 @@ START_TEXT = """✨ **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴡᴏʀʟᴅ's ʙᴇ
 ├ 🔊 **ʜɪɢʜ ǫᴜᴀʟɪᴛʏ ᴀᴜᴅɪᴏ**
 ├ ⏳ **ᴢᴇʀᴏ ʟᴀɢ sᴛʀᴇᴀᴍɪɴɢ**
 ├ 📜 **ǫᴜᴇᴜᴇ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ**
-└ 🛠 **ᴀᴅᴠᴀɴᴄᴇᴅ ᴄᴏɴᴛʀᴏʟs**
+├ 🔗 **ᴊɪᴏsᴀᴀᴠɴ sᴜᴘᴘᴏʀᴛ**
+└ 🛠 **ᴀᴅᴠᴀɴᴄᴇᴅ ᴀᴅᴍɪɴ ᴄᴏɴᴛʀᴏʟs**
 
 **ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴜᴛᴛᴏɴs ʙᴇʟᴏᴡ ᴛᴏ ᴇxᴘʟᴏʀᴇ ᴍᴏʀᴇ!**"""
 
@@ -22,7 +24,8 @@ HELP_TEXT = """**📚 ᴀᴅᴠᴀɴᴄᴇᴅ ᴍᴜsɪᴄ ʙᴏᴛ ᴄᴏᴍᴍ
 
 🎵 **ᴘʟᴀʏ ᴄᴏᴍᴍᴀɴᴅs:**
 ├ `/play <name>` — ᴘʟᴀʏ sᴏɴɢ ꜰʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ
-└ `/vplay <name>` — ᴘʟᴀʏ ᴠɪᴅᴇᴏ ꜰʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ
+├ `/vplay <name>` — ᴘʟᴀʏ ᴠɪᴅᴇᴏ ꜰʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ
+└ `/saavn <name>` — ᴘʟᴀʏ sᴏɴɢ ꜰʀᴏᴍ ᴊɪᴏsᴀᴀᴠɴ
 
 🎮 **ᴄᴏɴᴛʀᴏʟ ᴄᴏᴍᴍᴀɴᴅs:**
 ├ `/pause` — ᴘᴀᴜsᴇ ᴛʜᴇ sᴛʀᴇᴀᴍ
@@ -34,7 +37,15 @@ HELP_TEXT = """**📚 ᴀᴅᴠᴀɴᴄᴇᴅ ᴍᴜsɪᴄ ʙᴏᴛ ᴄᴏᴍᴍ
 🛠 **ᴏᴛʜᴇʀ ᴄᴏᴍᴍᴀɴᴅs:**
 ├ `/queue` — ᴠɪᴇᴡ ᴛʜᴇ ǫᴜᴇᴜᴇ
 ├ `/loop` — ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ ʟᴏᴏᴘ
-└ `/lyrics <name>` — ɢᴇᴛ sᴏɴɢ ʟʏʀɪᴄs"""
+├ `/ping` — ᴄʜᴇᴄᴋ ʙᴏᴛ ʟᴀᴛᴇɴᴄʏ
+└ `/stats` — ᴠɪᴇᴡ sʏsᴛᴇᴍ sᴛᴀᴛs
+
+👮‍♂️ **ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs:**
+├ `/auth` — ᴀᴜᴛʜᴏʀɪsᴇ ᴀ ᴜsᴇʀ (ʀᴇᴘʟʏ)
+├ `/unauth` — ᴜɴᴀᴜᴛʜᴏʀɪsᴇ ᴀ ᴜsᴇʀ (ʀᴇᴘʟʏ)
+├ `/addsudo` — ᴀᴅᴅ sᴜᴅᴏ ᴜsᴇʀ (ᴏᴡɴᴇʀ ᴏɴʟʏ)
+├ `/delsudo` — ʀᴇᴍᴏᴠᴇ sᴜᴅᴏ ᴜsᴇʀ (ᴏᴡɴᴇʀ ᴏɴʟʏ)
+└ `/broadcast` — ʙʀᴏᴀᴅᴄᴀsᴛ ᴍᴇssᴀɢᴇ (sᴜᴅᴏ ᴏɴʟʏ)"""
 
 def start_markup(username):
     return InlineKeyboardMarkup([
@@ -42,8 +53,8 @@ def start_markup(username):
         [InlineKeyboardButton("📖 ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
          InlineKeyboardButton("⚙️ sᴇᴛᴛɪɴɢs", callback_data="settings")],
         [InlineKeyboardButton("📢 ᴜᴘᴅᴀᴛᴇs", url="https://t.me/UpdatesChannel"),
-         InlineKeyboardButton("🛠 sᴜᴘᴘᴏʀᴛ", url="https://t.me/SupportGroup")],
-        [InlineKeyboardButton("👑 ᴅᴇᴠ:- @its_me_secret 👑", url="https://t.me/its_me_secret")]
+         InlineKeyboardButton("🛠 sᴜᴘᴘᴏʀᴛ", url=config.SUPPORT_CHAT)],
+        [InlineKeyboardButton("👑 ᴏᴡɴᴇʀ 👑", url=f"tg://user?id={config.OWNER_ID}")]
     ])
 
 @bot.on_message(filters.command("start") & filters.private)

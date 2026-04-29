@@ -66,7 +66,7 @@
 
 <div align="center">
 
-  **𝐌𝐚𝐢𝐧 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫**
+  **𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫**
 
 [![𝐒𝐄𝐂𝐑𝐄𝐓](https://img.shields.io/badge/𝐒𝐄𝐂𝐑𝐄𝐓-black?style=for-the-badge&logo=telegram)](https://t.me/its_me_secret)
 [![GitHub](https://img.shields.io/badge/Secretaidev-black?style=for-the-badge&logo=github)](https://github.com/Secretaidev)
