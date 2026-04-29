@@ -64,11 +64,10 @@
 
 ### 👑 **ᴅᴇᴠᴇʟᴏᴘᴇʀ**
 
-<p align="center">
-  <a href="https://t.me/its_me_secret">
-    <img src="https://img.shields.io/badge/ᴍᴀᴅᴇ%20ᴡɪᴛʜ%20❤️%20ʙʏ-@ɪᴛs__ᴍᴇ__sᴇᴄʀᴇᴛ-FF69B4?style=for-the-badge" alt="its_me_secret">
-  </a>
-</p>
+**𝐌𝐚𝐢𝐧 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫**
+
+[![𝐒𝐄𝐂𝐑𝐄𝐓](https://img.shields.io/badge/𝐒𝐄𝐂𝐑𝐄𝐓-black?style=for-the-badge&logo=telegram)](https://t.me/its_me_secret)
+[![GitHub](https://img.shields.io/badge/Secretaidev-black?style=for-the-badge&logo=github)](https://github.com/Secretaidev)
 
 <p align="center">
   <b>ᴛʜɪs ɪs ᴛʜᴇ ᴍᴏsᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴍᴜsɪᴄ ʙᴏᴛ, ᴅᴇsɪɢɴᴇᴅ ꜰᴏʀ ᴘᴇʀꜰᴇᴄᴛɪᴏɴ.</b>
