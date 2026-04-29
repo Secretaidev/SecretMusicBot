@@ -1,8 +1,8 @@
 <h1 align="center">✨ sᴏɴɢsᴛʀᴇᴀᴍ: ᴡᴏʀʟᴅ's ᴍᴏsᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴍᴜsɪᴄ ʙᴏᴛ ✨</h1>
 
-<p align="center">
-  <img src="https://telegra.ph/file/a1c4c5a5d8e1c2f3b4c5d.jpg" width="400" alt="SongStream Logo">
-</p>
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=34&duration=4500&pause=1000&color=00D9FF&center=true&vCenter=true&width=1600&lines=𝐒𝐞𝐜𝐫𝐞𝐭+𝐌𝐮𝐬𝐢𝐜+𝐑𝐞𝐩𝐨+—+𝐋𝐢𝐠𝐡𝐭𝐧𝐢𝐧𝐠+𝐅𝐚𝐬𝐭+𝐌𝐮𝐬𝐢𝐜+𝐒𝐭𝐫𝐞𝐚𝐦𝐢𝐧𝐠+—+𝐍𝐨𝐰+𝐑𝐮𝐧𝐧𝐢𝐧𝐠+𝐨𝐧+𝐀𝐏𝐈!">
+</div>
 
 <p align="center">
   <a href="https://railway.app/new/template?template=https://github.com/yourusername/yourrepo"><img src="https://railway.app/button.svg" alt="Deploy on Railway"></a>
@@ -10,8 +10,8 @@
 
 <p align="center">
   <a href="https://t.me/its_me_secret"><img src="https://img.shields.io/badge/ᴅᴇᴠᴇʟᴏᴘᴇʀ-@ɪᴛs__ᴍᴇ__sᴇᴄʀᴇᴛ-blueviolet?style=for-the-badge&logo=telegram" alt="Developer"></a>
-  <a href="https://t.me/UpdatesChannel"><img src="https://img.shields.io/badge/ᴜᴘᴅᴀᴛᴇs-ᴄʜᴀɴɴᴇʟ-blue?style=for-the-badge&logo=telegram" alt="Updates"></a>
-  <a href="https://t.me/SupportGroup"><img src="https://img.shields.io/badge/sᴜᴘᴘᴏʀᴛ-ɢʀᴏᴜᴘ-red?style=for-the-badge&logo=telegram" alt="Support"></a>
+  <a href="https://t.me/SecretzBots"><img src="https://img.shields.io/badge/ᴜᴘᴅᴀᴛᴇs-ᴄʜᴀɴɴᴇʟ-blue?style=for-the-badge&logo=telegram" alt="Updates"></a>
+  <a href="https://t.me/SecretSupportChat"><img src="https://img.shields.io/badge/sᴜᴘᴘᴏʀᴛ-ɢʀᴏᴜᴘ-red?style=for-the-badge&logo=telegram" alt="Support"></a>
 </p>
 
 <p align="center">
