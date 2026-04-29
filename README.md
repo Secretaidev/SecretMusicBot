@@ -9,15 +9,18 @@
 </p>
 
 <p align="center">
-  <a href="https://t.me/its_me_secret"><img src="https://img.shields.io/badge/ᴅᴇᴠᴇʟᴏᴘᴇʀ-@ɪᴛs__ᴍᴇ__sᴇᴄʀᴇᴛ-blueviolet?style=for-the-badge&logo=telegram" alt="Developer"></a>
-  <a href="https://t.me/SecretzBots"><img src="https://img.shields.io/badge/ᴜᴘᴅᴀᴛᴇs-ᴄʜᴀɴɴᴇʟ-blue?style=for-the-badge&logo=telegram" alt="Updates"></a>
-  <a href="https://t.me/SecretSupportChat"><img src="https://img.shields.io/badge/sᴜᴘᴘᴏʀᴛ-ɢʀᴏᴜᴘ-red?style=for-the-badge&logo=telegram" alt="Support"></a>
+ [![Support Channel](https://img.shields.io/badge/Support%20Channel-black?style=for-the-badge&logo=telegram)](https://t.me/SecretzBots)
+[![Support Group](https://img.shields.io/badge/Support%20Group-black?style=for-the-badge&logo=telegram)](https://t.me/SecretSupportChat)
+[![Owner](https://img.shields.io/badge/Owner-black?style=for-the-badge&logo=telegram)](https://t.me/its_me_secret)
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/yourusername/yourrepo?style=social" alt="Stars">
-  <img src="https://img.shields.io/github/forks/yourusername/yourrepo?style=social" alt="Forks">
-  <img src="https://img.shields.io/github/license/yourusername/yourrepo?style=flat-square" alt="License">
+  <img src="https://img.shields.io/github/stars/Secretaidev/
+SecretMusicBot?style=social" alt="Stars">
+  <img src="https://img.shields.io/github/forks/Secretaidev/
+SecretMusicBot?style=social" alt="Forks">
+  <img src="https://img.shields.io/github/license/Secretaidev/
+SecretMusicBot?style=flat-square" alt="License">
 </p>
 
 ---
