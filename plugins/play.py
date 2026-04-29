@@ -189,7 +189,7 @@ async def _start_playback(chat_id: int):
     if not track:
         state.is_playing = False
         try:
-            await call.leave_call(chat_id)
+            await call.leave_group_call(chat_id)
         except Exception:
             pass
         return
@@ -202,7 +202,7 @@ async def _start_playback(chat_id: int):
 
     try:
         stream = VideoPiped(track.file_path) if track.is_video else AudioPiped(track.file_path)
-        await call.join_call(chat_id, stream)
+        await call.join_group_call(chat_id, stream)
     except AlreadyJoinedError:
         stream = VideoPiped(track.file_path) if track.is_video else AudioPiped(track.file_path)
         await call.change_stream(chat_id, stream)
@@ -212,7 +212,7 @@ async def _start_playback(chat_id: int):
         await assistant_join(chat_id)
         try:
             stream = VideoPiped(track.file_path) if track.is_video else AudioPiped(track.file_path)
-            await call.join_call(chat_id, stream)
+            await call.join_group_call(chat_id, stream)
         except Exception as e2:
             await bot.send_message(chat_id, f"❌ **ᴇʀʀᴏʀ sᴛᴀʀᴛɪɴɢ ᴘʟᴀʏʙᴀᴄᴋ:** `{e2}`")
             return

@@ -17,7 +17,7 @@ async def leavevc_cmd(_, message):
         return await message.reply_text("❌ **ᴀᴅᴍɪɴs ᴏɴʟʏ.**")
     
     try:
-        await call.leave_call(chat_id)
+        await call.leave_group_call(chat_id)
         await message.reply_text("👋 **ʟᴇꜰᴛ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ.**")
     except Exception as e:
         await message.reply_text(f"❌ **ᴇʀʀᴏʀ:** `{e}`")

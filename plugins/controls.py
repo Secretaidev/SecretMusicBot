@@ -237,7 +237,7 @@ async def ctrl_cb(_, query: CallbackQuery):
     elif action == "stop":
         queue_manager.clear(chat_id)
         try:
-            await call.leave_call(chat_id)
+            await call.leave_group_call(chat_id)
         except Exception:
             pass
         await query.answer("sᴛᴏᴘᴘᴇᴅ.")
