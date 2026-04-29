@@ -22,7 +22,6 @@
 [![Contributors](https://img.shields.io/github/contributors/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/graphs/contributors)
 
 </div>
----
 
 ### 🚀 **ꜰᴇᴀᴛᴜʀᴇs**
 
