@@ -9,19 +9,16 @@
 </p>
 
 
- [![Support Channel](https://img.shields.io/badge/Support%20Channel-black?style=for-the-badge&logo=telegram)](https://t.me/SecretzBots)
+[![Support Channel](https://img.shields.io/badge/Support%20Channel-black?style=for-the-badge&logo=telegram)](https://t.me/SecretzBots)
 [![Support Group](https://img.shields.io/badge/Support%20Group-black?style=for-the-badge&logo=telegram)](https://t.me/SecretSupportChat)
 [![Owner](https://img.shields.io/badge/Owner-black?style=for-the-badge&logo=telegram)](https://t.me/its_me_secret)
 
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/Secretaidev/
-SecretMusicBot?style=social" alt="Stars">
-  <img src="https://img.shields.io/github/forks/Secretaidev/
-SecretMusicBot?style=social" alt="Forks">
-  <img src="https://img.shields.io/github/license/Secretaidev/
-SecretMusicBot?style=flat-square" alt="License">
-</p>
+[![Forks](https://img.shields.io/github/forks/Secretaidev
+/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/fork)
+[![Stars](https://img.shields.io/github/stars/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/graphs/contributors)
+
 
 ---
 
