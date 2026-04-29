@@ -8,6 +8,9 @@
   <a href="https://railway.app/new/template?template=https://github.com/yourusername/yourrepo"><img src="https://railway.app/button.svg" alt="Deploy on Railway"></a>
 </p>
 
+---
+
+<div align="center">
 
 [![Support Channel](https://img.shields.io/badge/Support%20Channel-black?style=for-the-badge&logo=telegram)](https://t.me/SecretzBots)
 [![Support Group](https://img.shields.io/badge/Support%20Group-black?style=for-the-badge&logo=telegram)](https://t.me/SecretSupportChat)
@@ -18,7 +21,7 @@
 [![Stars](https://img.shields.io/github/stars/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/stargazers)
 [![Contributors](https://img.shields.io/github/contributors/Secretaidev/SecretMusicBot?color=black&logo=github&logoColor=black&style=for-the-badge)](https://github.com/Secretaidev/SecretMusicBot/graphs/contributors)
 
-
+</div>
 ---
 
 ### 🚀 **ꜰᴇᴀᴛᴜʀᴇs**
