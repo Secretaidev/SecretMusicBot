@@ -22,6 +22,7 @@ LANGUAGE = os.getenv("LANGUAGE", "en")          # i18n stub
 LOG_GROUP = int(os.getenv("LOG_GROUP", "0"))    # optional log channel
 LOG_CHANNEL = int(os.getenv("LOG_CHANNEL", "0")) # Private logs channel
 MONGO_DB_URI = os.getenv("MONGO_DB_URI", "")     # MongoDB connection string
+MUST_JOIN = os.getenv("MUST_JOIN", "")           # Channel username for force join
 SUPPORT_CHAT = os.getenv("SUPPORT_CHAT", "https://t.me/SupportGroup")
 OWNER_ID = int(os.getenv("OWNER_ID", "123456789")) # Replace with your real Owner ID
 SUDO_USERS = list(map(int, os.getenv("SUDO_USERS", "").split())) if os.getenv("SUDO_USERS") else []

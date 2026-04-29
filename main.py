@@ -20,6 +20,7 @@ import plugins.admin
 import plugins.voice_chat
 import plugins.lyrics
 import plugins.assistant_handler
+import plugins.sudo
 
 
 async def main():

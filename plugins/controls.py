@@ -16,17 +16,20 @@ def player_controls_markup() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("⏸ ᴘᴀᴜsᴇ", callback_data="ctrl|pause"),
-                InlineKeyboardButton("▶️ ʀᴇsᴜᴍᴇ", callback_data="ctrl|resume"),
-                InlineKeyboardButton("⏭ sᴋɪᴘ", callback_data="ctrl|skip"),
+                InlineKeyboardButton("⏸", callback_data="ctrl|pause"),
+                InlineKeyboardButton("▶️", callback_data="ctrl|resume"),
+                InlineKeyboardButton("⏭", callback_data="ctrl|skip"),
             ],
             [
-                InlineKeyboardButton("🔁 ʟᴏᴏᴘ", callback_data="ctrl|loop"),
-                InlineKeyboardButton("⏹ sᴛᴏᴘ", callback_data="ctrl|stop"),
+                InlineKeyboardButton("🔁", callback_data="ctrl|loop"),
+                InlineKeyboardButton("⏹", callback_data="ctrl|stop"),
             ],
             [
                 InlineKeyboardButton("📜 ǫᴜᴇᴜᴇ", callback_data="ctrl|queue"),
                 InlineKeyboardButton("🛠 sᴜᴘᴘᴏʀᴛ", url=config.SUPPORT_CHAT),
+            ],
+            [
+                InlineKeyboardButton("🗑 ᴄʟᴏsᴇ ᴘʟᴀʏᴇʀ", callback_data="ctrl|close"),
             ],
             [
                 InlineKeyboardButton("👑 ᴏᴡɴᴇʀ 👑", url=f"tg://user?id={config.OWNER_ID}"),
@@ -240,6 +243,10 @@ async def ctrl_cb(_, query: CallbackQuery):
         await query.answer("sᴛᴏᴘᴘᴇᴅ.")
         await query.message.edit_reply_markup(None)
         await query.message.reply_text("⏹ **ᴘʟᴀʏʙᴀᴄᴋ sᴛᴏᴘᴘᴇᴅ & ǫᴜᴇᴜᴇ ᴄʟᴇᴀʀᴇᴅ.**")
+
+    elif action == "close":
+        await query.message.delete()
+        await query.answer("ᴄʟᴏsᴇᴅ.")
 
     elif action == "queue":
         from plugins.queue import build_queue_text

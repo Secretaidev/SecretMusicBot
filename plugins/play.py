@@ -13,17 +13,47 @@ from utils.queue_manager import queue_manager, Track
 from plugins.controls import update_now_playing
 from plugins.assistant_handler import assistant_join
 import config
+from pyrogram.errors import UserNotParticipant
+import config
 
 bot = bot_client.bot
 user = bot_client.user
 call = bot_client.call
 
-_vc_locks = {}
+async def check_force_join(user_id: int):
+    if not config.MUST_JOIN:
+        return True
+    try:
+        await bot.get_chat_member(config.MUST_JOIN, user_id)
+        return True
+    except UserNotParticipant:
+        return False
+    except Exception:
+        return True
 
 @bot.on_message(filters.command(["play", "vplay", "saavn"]))
 async def play_handler(_, message):
     chat_id = message.chat.id
+    user_id = message.from_user.id
+
+    if not await check_force_join(user_id):
+        try:
+            invite_link = await bot.export_chat_invite_link(config.MUST_JOIN)
+        except Exception:
+            invite_link = f"https://t.me/{config.MUST_JOIN}"
+
+        return await message.reply_text(
+            f"❌ **ᴀᴄᴄᴇss ᴅᴇɴɪᴇᴅ!**\n\n"
+            f"ʏᴏᴜ ᴍᴜsᴛ ᴊᴏɪɴ ᴏᴜʀ **ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ** ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ.\n\n"
+            f"ᴊᴏɪɴ ᴀɴᴅ ᴛʜᴇɴ ᴛʀʏ ᴘʟᴀʏɪɴɢ ᴀɢᴀɪɴ!",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("📢 ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=invite_link)]
+            ])
+        )
+
     cmd = message.command[0]
+...
+
     is_video = cmd == "vplay"
     is_saavn = cmd == "saavn"
     replied = message.reply_to_message
@@ -55,10 +85,11 @@ async def play_handler(_, message):
         mode = "v" if is_video else "a"
         source = "j" if is_saavn or r.get("source") == "jiosaavn" else "y"
         callback = f"ply|{chat_id}|{r['id']}|{mode}|{source}"
+        icon = "🎵" if mode == "a" else "🎥"
         buttons.append(
-            [InlineKeyboardButton(f"{i}. {r['title'][:35]} | {dur}", callback_data=callback)]
+            [InlineKeyboardButton(f"{icon} {i}. {r['title'][:30]}... ({dur})", callback_data=callback)]
         )
-    buttons.append([InlineKeyboardButton("❌ ᴄᴀɴᴄᴇʟ", callback_data="cncl")])
+    buttons.append([InlineKeyboardButton("🗑 ᴄʟᴏsᴇ sᴇᴀʀᴄʜ", callback_data="cncl")])
     
     await m.edit_text(
         f"🎵 **{'ᴊɪᴏsᴀᴀᴠɴ' if is_saavn else 'ʏᴏᴜᴛᴜʙᴇ'} sᴇᴀʀᴄʜ ʀᴇsᴜʟᴛs:**", 
