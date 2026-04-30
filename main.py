@@ -7,42 +7,20 @@ import asyncio
 import os
 import sys
 
-# Ensure working dir is on path so plugins import correctly
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from utils.logger import LOGGER
 from client.client import bot_client
-from config import API_ID, API_HASH, BOT_TOKEN, BOT_NAME, BOT_VERSION
-
-# ── Import all plugins so their handlers register ─────────────
-import plugins.start
-import plugins.play
-import plugins.controls
-import plugins.queue
-import plugins.playlist
-import plugins.admin
-import plugins.voice_chat
-import plugins.lyrics
-import plugins.assistant_handler
-import plugins.sudo
-import plugins.effects
-import plugins.download
-import plugins.settings
-import plugins.inline
-import plugins.radio
-import plugins.spotify_handler
-
+from config import API_ID, API_HASH, BOT_TOKEN, BOT_NAME, BOT_VERSION, LOG_GROUP
 
 BANNER = f"""
 ╔══════════════════════════════════════════════════╗
 ║           ✨ {BOT_NAME} v{BOT_VERSION} ✨           ║
 ║        The World's Most Advanced Music Bot        ║
 ╠══════════════════════════════════════════════════╣
-║  Features:                                        ║
 ║  🎵 YouTube • Spotify • JioSaavn • SoundCloud     ║
 ║  📻 Live Radio • 🎛 Audio Effects • 📜 Playlists  ║
 ║  🔁 Loop • 🔀 Shuffle • ❤️ Favourites • 📊 Stats  ║
-║  🎧 8D Audio • ⚡ Nightcore • 🌊 Vaporwave       ║
 ║  📥 Download Songs • 🔍 Inline Search             ║
 ╚══════════════════════════════════════════════════╝
 """
@@ -53,17 +31,35 @@ async def main():
         LOGGER.critical("API_ID, API_HASH and BOT_TOKEN must be set!")
         sys.exit(1)
 
-    # Ensure required directories exist
     for d in ("downloads", "thumbnails", "logs"):
         os.makedirs(d, exist_ok=True)
 
-    # Start all clients
+    # Start all clients first
     await bot_client.start()
+
+    # Now import plugins so handlers register on the started bot
+    import plugins.start
+    import plugins.play
+    import plugins.controls
+    import plugins.queue
+    import plugins.playlist
+    import plugins.admin
+    import plugins.voice_chat
+    import plugins.lyrics
+    import plugins.assistant_handler
+    import plugins.sudo
+    import plugins.effects
+    import plugins.download
+    import plugins.settings
+    import plugins.inline
+    import plugins.radio
+    import plugins.spotify_handler
 
     print(BANNER)
     LOGGER.info(f"Bot: @{bot_client.bot.me.username}")
+
     if bot_client.user:
-        LOGGER.info(f"Assistant: @{bot_client.user.me.username or bot_client.user.me.id}")
+        LOGGER.info(f"Assistant: {bot_client.user.me.first_name} ({bot_client.user.me.id})")
     if bot_client.call:
         LOGGER.info("PyTgCalls: Ready")
     else:
@@ -71,14 +67,29 @@ async def main():
 
     LOGGER.info(f"{BOT_NAME} v{BOT_VERSION} is fully operational!")
 
-    # Keep running until Ctrl+C
+    # Send startup log to LOG_GROUP
+    if LOG_GROUP != 0:
+        try:
+            assistant_status = f"✅ {bot_client.user.me.first_name}" if bot_client.user else "❌ Not Connected"
+            vc_status = "✅ Ready" if bot_client.call else "❌ Disabled"
+            await bot_client.bot.send_message(
+                LOG_GROUP,
+                f"🚀 **{BOT_NAME} Started!**\n\n"
+                f"🤖 Bot: @{bot_client.bot.me.username}\n"
+                f"👤 Assistant: {assistant_status}\n"
+                f"🎙 Voice Chat: {vc_status}\n"
+                f"📊 Version: `{BOT_VERSION}`",
+            )
+        except Exception as e:
+            LOGGER.warning(f"Log group message failed: {e}")
+
+    # Keep running
     try:
-        while True:
-            await asyncio.sleep(3600)
-    except asyncio.CancelledError:
+        await asyncio.Event().wait()
+    except (KeyboardInterrupt, asyncio.CancelledError):
         pass
     finally:
-        LOGGER.info("Shutting down gracefully...")
+        LOGGER.info("Shutting down...")
         await bot_client.stop()
 
 

@@ -1,6 +1,6 @@
-pyrogram~=2.0.106
+pyrofork
 tgcrypto
-py-tgcalls
+py-tgcalls[pyrogram]
 youtube-search-python
 yt-dlp
 aiohttp

@@ -24,6 +24,7 @@ OWNER_ID = ""
 # ═══════════════════════════════════════
 MONGO_DB_URI = ""
 LOG_CHANNEL = ""
+LOG_GROUP = ""
 MUST_JOIN = ""
 SUPPORT_CHAT = "https://t.me/SecretSupportChat"
 SUDO_USERS = ""

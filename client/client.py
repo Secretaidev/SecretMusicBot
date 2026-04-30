@@ -1,18 +1,28 @@
 """Pyrogram bot + assistant + PyTgCalls — production-grade client.
 
-Uses the modern pytgcalls API (MediaStream, .play(), stream_ended decorator).
-Includes auto-reconnection, health checks, and graceful degradation.
+Uses pyrofork (modern pyrogram fork) + py-tgcalls for voice chat streaming.
 """
 
 import asyncio
 import time
-from pyrogram import Client
-from pytgcalls import PyTgCalls
+
+try:
+    from pyrogram import Client
+except ImportError:
+    from pyrofork import Client
 
 import config
 from utils.logger import get_logger
 
 log = get_logger("Client")
+
+# Import PyTgCalls safely
+_pytgcalls_available = True
+try:
+    from pytgcalls import PyTgCalls
+except Exception as e:
+    _pytgcalls_available = False
+    log.warning(f"PyTgCalls import failed: {e}")
 
 
 class BotClient:
@@ -31,7 +41,7 @@ class BotClient:
         self._ready = False
         self._start_time = None
 
-        if config.SESSION_STRING:
+        if config.SESSION_STRING and _pytgcalls_available:
             try:
                 self.user = Client(
                     "music_assistant",
@@ -45,6 +55,8 @@ class BotClient:
                 log.error(f"Failed to init assistant: {e}")
                 self.user = None
                 self.call = None
+        elif config.SESSION_STRING and not _pytgcalls_available:
+            log.warning("SESSION_STRING set but PyTgCalls not available. Install: pip install py-tgcalls[pyrogram]")
 
     @property
     def is_ready(self) -> bool:
@@ -93,9 +105,41 @@ class BotClient:
 
         self._ready = True
 
+        # 4) Send startup log to LOG_CHANNEL
+        await self._send_startup_log()
+
+    async def _send_startup_log(self):
+        """Send startup notification to LOG_CHANNEL."""
+        if config.LOG_CHANNEL == 0:
+            return
+        try:
+            bot_info = f"@{self.bot.me.username}"
+            assistant_info = f"@{self.user.me.username}" if self.user and self.user.me.username else (f"{self.user.me.first_name} ({self.user.me.id})" if self.user else "❌ Not Connected")
+            pytgcalls_info = "✅ Ready" if self.call else "❌ Not Available"
+
+            await self.bot.send_message(
+                config.LOG_CHANNEL,
+                f"🚀 **ʙᴏᴛ sᴛᴀʀᴛᴇᴅ sᴜᴄᴄᴇssꜰᴜʟʟʏ!**\n\n"
+                f"🤖 **ʙᴏᴛ:** {bot_info}\n"
+                f"👤 **ᴀssɪsᴛᴀɴᴛ:** {assistant_info}\n"
+                f"🎙 **ᴘʏᴛɢᴄᴀʟʟs:** {pytgcalls_info}\n"
+                f"📊 **ᴠᴇʀsɪᴏɴ:** `{config.BOT_VERSION}`\n"
+                f"⏱ **sᴛᴀʀᴛᴇᴅ ᴀᴛ:** `{time.strftime('%Y-%m-%d %H:%M:%S UTC')}`\n\n"
+                f"✨ **{config.BOT_NAME}** ɪs ɴᴏᴡ ᴏɴʟɪɴᴇ!",
+            )
+        except Exception as e:
+            log.warning(f"Failed to send startup log: {e}")
+
     async def stop(self):
         """Graceful shutdown in reverse order."""
         self._ready = False
+        # Send shutdown log
+        if config.LOG_CHANNEL != 0:
+            try:
+                await self.bot.send_message(config.LOG_CHANNEL, "🔴 **ʙᴏᴛ sʜᴜᴛᴛɪɴɢ ᴅᴏᴡɴ…**")
+            except Exception:
+                pass
+
         for name, client in [("PyTgCalls", self.call), ("Assistant", self.user), ("Bot", self.bot)]:
             if client:
                 try:
