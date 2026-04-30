@@ -10,8 +10,30 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from utils.logger import LOGGER
-from client.client import bot_client
 from config import API_ID, API_HASH, BOT_TOKEN, BOT_NAME, BOT_VERSION, LOG_GROUP
+
+# ── Import plugins at module level so handlers register on the Client ──
+# This MUST happen before bot.start() — pyrogram registers handlers
+# on the Client object, and start() begins polling for updates.
+import plugins.start
+import plugins.play
+import plugins.controls
+import plugins.queue
+import plugins.playlist
+import plugins.admin
+import plugins.voice_chat
+import plugins.lyrics
+import plugins.assistant_handler
+import plugins.sudo
+import plugins.effects
+import plugins.download
+import plugins.settings
+import plugins.inline
+import plugins.radio
+import plugins.spotify_handler
+
+# Import client AFTER plugins so all handlers are registered
+from client.client import bot_client
 
 BANNER = f"""
 ╔══════════════════════════════════════════════════╗
@@ -34,26 +56,12 @@ async def main():
     for d in ("downloads", "thumbnails", "logs"):
         os.makedirs(d, exist_ok=True)
 
-    # Start all clients first
+    # Start all clients — handlers already registered above
     await bot_client.start()
 
-    # Now import plugins so handlers register on the started bot
-    import plugins.start
-    import plugins.play
-    import plugins.controls
-    import plugins.queue
-    import plugins.playlist
-    import plugins.admin
-    import plugins.voice_chat
-    import plugins.lyrics
-    import plugins.assistant_handler
-    import plugins.sudo
-    import plugins.effects
-    import plugins.download
-    import plugins.settings
-    import plugins.inline
-    import plugins.radio
-    import plugins.spotify_handler
+    # Register stream-end handler now that PyTgCalls is started
+    from plugins.play import _register_stream_handler
+    _register_stream_handler()
 
     print(BANNER)
     LOGGER.info(f"Bot: @{bot_client.bot.me.username}")
@@ -78,7 +86,8 @@ async def main():
                 f"🤖 Bot: @{bot_client.bot.me.username}\n"
                 f"👤 Assistant: {assistant_status}\n"
                 f"🎙 Voice Chat: {vc_status}\n"
-                f"📊 Version: `{BOT_VERSION}`",
+                f"📊 Version: `{BOT_VERSION}`\n"
+                f"📦 Plugins: `16` loaded",
             )
         except Exception as e:
             LOGGER.warning(f"Log group message failed: {e}")

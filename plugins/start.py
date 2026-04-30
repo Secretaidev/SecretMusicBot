@@ -282,3 +282,16 @@ async def back_cb(_, query: CallbackQuery):
 @bot.on_callback_query(filters.regex("^settings$"))
 async def settings_redirect_cb(_, query: CallbackQuery):
     await query.answer("ᴜsᴇ /settings ɪɴ ᴀ ɢʀᴏᴜᴘ!", show_alert=True)
+
+
+@bot.on_message(filters.command("alive"))
+async def alive_cmd(_, message):
+    from utils.helpers import get_readable_time
+    up = get_readable_time(int(time.time() - bot_client.start_time)) if bot_client.start_time else "N/A"
+    vc = "✅" if bot_client.call else "❌"
+    await message.reply_text(
+        f"✅ **{config.BOT_NAME}** is alive!\n\n"
+        f"⏱ Uptime: `{up}`\n"
+        f"🎙 VC: {vc}\n"
+        f"📊 v{config.BOT_VERSION}"
+    )

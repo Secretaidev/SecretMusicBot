@@ -443,7 +443,3 @@ def _register_stream_handler():
         pass
 
     log.warning("Could not register stream-end handler — auto-skip disabled")
-
-
-_register_stream_handler()
-
