@@ -70,13 +70,26 @@ class BotClient:
         """Start bot → assistant → PyTgCalls in order."""
         self._start_time = time.time()
 
-        # 1) Start bot
-        try:
-            await self.bot.start()
-            log.info(f"Bot @{self.bot.me.username} started.")
-        except Exception as e:
-            log.critical(f"Bot start failed: {e}")
-            raise
+        # 1) Start bot — with FloodWait handling
+        for attempt in range(5):
+            try:
+                await self.bot.start()
+                log.info(f"Bot @{self.bot.me.username} started.")
+                break
+            except Exception as e:
+                err_str = str(e)
+                # Handle FloodWait: wait the required seconds
+                if "FLOOD_WAIT" in err_str or "FloodWait" in type(e).__name__:
+                    wait = 30
+                    try:
+                        wait = int(e.value) if hasattr(e, 'value') else int(''.join(filter(str.isdigit, err_str.split('wait of ')[-1][:5])))
+                    except Exception:
+                        wait = 60
+                    log.warning(f"FloodWait: waiting {wait}s before retry (attempt {attempt+1}/5)")
+                    await asyncio.sleep(wait + 5)
+                else:
+                    log.critical(f"Bot start failed: {e}")
+                    raise
 
         # 2) Start assistant
         if self.user:

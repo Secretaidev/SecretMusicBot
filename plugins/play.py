@@ -404,8 +404,12 @@ async def _handle_spotify_playlist(chat_id, user_id, url, status_msg):
 # STREAM END HANDLER — auto-play next track
 # ═══════════════════════════════════════════════════════════════
 
-if call:
-    @call.on_stream_end()
+def _register_stream_handler():
+    """Register stream-end callback using whatever API version is available."""
+    _call = bot_client.call
+    if not _call:
+        return
+
     async def _on_stream_end(client, update):
         chat_id = update.chat_id
         log.info(f"Stream ended in {chat_id}")
@@ -414,3 +418,32 @@ if call:
             await _start_playback(chat_id)
         except Exception as e:
             log.error(f"Stream-end handler error: {e}")
+
+    # Try modern API first, then fallbacks
+    try:
+        _call.on_stream_end()(_on_stream_end)
+        log.info("Registered stream handler: on_stream_end()")
+        return
+    except (AttributeError, TypeError):
+        pass
+
+    try:
+        from pytgcalls import filters as ptgfilters
+        _call.on_update(ptgfilters.stream_end)(_on_stream_end)
+        log.info("Registered stream handler: on_update(stream_end)")
+        return
+    except (ImportError, AttributeError, TypeError):
+        pass
+
+    try:
+        _call.on_closed_voice_chat()(_on_stream_end)
+        log.info("Registered stream handler: on_closed_voice_chat()")
+        return
+    except (AttributeError, TypeError):
+        pass
+
+    log.warning("Could not register stream-end handler — auto-skip disabled")
+
+
+_register_stream_handler()
+
