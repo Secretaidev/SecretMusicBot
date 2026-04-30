@@ -23,7 +23,7 @@ START_IMG = "https://telegra.ph/file/a1c4c5a5d8e1c2f3b4c5d.jpg"
 # ═══════════════════════════════════════════════════════════════
 # START TEXT
 # ═══════════════════════════════════════════════════════════════
-START_TEXT = """✨ **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ {bot_name} ᴠ{version}** ✨
+START_TEXT = """✨ **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ {bot_name}** ✨
 
 🎶 **ᴛʜᴇ ᴡᴏʀʟᴅ's ᴍᴏsᴛ ᴀᴅᴠᴀɴᴄᴇᴅ ᴛᴇʟᴇɢʀᴀᴍ ᴍᴜsɪᴄ ʙᴏᴛ**
 
@@ -132,10 +132,8 @@ ADMIN_HELP = """👮 **ᴀᴅᴍɪɴ & ᴍᴏᴅᴇʀᴀᴛɪᴏɴ**
 
 ABOUT_TEXT = """🌟 **ᴀʙᴏᴜᴛ {bot_name}**
 
-**ᴠᴇʀsɪᴏɴ:** `{version}`
 **ꜰʀᴀᴍᴇᴡᴏʀᴋ:** Pyrogram + PyTgCalls
-**ʟᴀɴɢᴜᴀɢᴇ:** Python 3.11+
-**ᴅᴀᴛᴀʙᴀsᴇ:** MongoDB (ᴡɪᴛʜ ɪɴ-ᴍᴇᴍᴏʀʏ ꜰᴀʟʟʙᴀᴄᴋ)
+**ᴅᴀᴛᴀʙᴀsᴇ:** MongoDB
 
 📊 **ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs:**
 ├ 🎵 ᴀᴄᴛɪᴠᴇ sᴛʀᴇᴀᴍs: `{active}`
@@ -203,7 +201,7 @@ def help_nav_markup(current: str) -> InlineKeyboardMarkup:
 @bot.on_message(filters.command("start") & filters.private)
 async def start_handler(_, message):
     me = await bot.get_me()
-    text = START_TEXT.format(bot_name=config.BOT_NAME, version=config.BOT_VERSION)
+    text = START_TEXT.format(bot_name=config.BOT_NAME)
     try:
         await message.reply_photo(START_IMG, caption=text, reply_markup=start_markup(me.username))
     except Exception:
@@ -213,7 +211,7 @@ async def start_handler(_, message):
 @bot.on_message(filters.command("help"))
 async def help_handler(_, message):
     me = await bot.get_me()
-    text = START_TEXT.format(bot_name=config.BOT_NAME, version=config.BOT_VERSION)
+    text = START_TEXT.format(bot_name=config.BOT_NAME)
     try:
         await message.reply_photo(START_IMG, caption=text, reply_markup=start_markup(me.username))
     except Exception:
@@ -261,7 +259,7 @@ async def help_about_cb(_, query: CallbackQuery):
     groups = await db.get_group_count()
     uptime = get_readable_time(int(time.time() - bot_client.start_time)) if bot_client.start_time else "N/A"
     text = ABOUT_TEXT.format(
-        bot_name=config.BOT_NAME, version=config.BOT_VERSION,
+        bot_name=config.BOT_NAME,
         active=stats["active_chats"], played=stats["total_played"],
         groups=groups, uptime=uptime,
     )
@@ -273,7 +271,7 @@ async def help_about_cb(_, query: CallbackQuery):
 @bot.on_callback_query(filters.regex("^start$"))
 async def back_cb(_, query: CallbackQuery):
     me = await bot.get_me()
-    text = START_TEXT.format(bot_name=config.BOT_NAME, version=config.BOT_VERSION)
+    text = START_TEXT.format(bot_name=config.BOT_NAME)
     try:
         await query.edit_message_caption(caption=text, reply_markup=start_markup(me.username))
     except Exception:
@@ -282,16 +280,3 @@ async def back_cb(_, query: CallbackQuery):
 @bot.on_callback_query(filters.regex("^settings$"))
 async def settings_redirect_cb(_, query: CallbackQuery):
     await query.answer("ᴜsᴇ /settings ɪɴ ᴀ ɢʀᴏᴜᴘ!", show_alert=True)
-
-
-@bot.on_message(filters.command("alive"))
-async def alive_cmd(_, message):
-    from utils.helpers import get_readable_time
-    up = get_readable_time(int(time.time() - bot_client.start_time)) if bot_client.start_time else "N/A"
-    vc = "✅" if bot_client.call else "❌"
-    await message.reply_text(
-        f"✅ **{config.BOT_NAME}** is alive!\n\n"
-        f"⏱ Uptime: `{up}`\n"
-        f"🎙 VC: {vc}\n"
-        f"📊 v{config.BOT_VERSION}"
-    )

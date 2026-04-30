@@ -28,8 +28,9 @@ logging.basicConfig(
     ],
 )
 
-# Suppress noisy loggers
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
+# Suppress noisy loggers but keep pyrogram at INFO for debugging
+logging.getLogger("pyrogram").setLevel(logging.INFO)
+logging.getLogger("pyrogram.session").setLevel(logging.WARNING)
 logging.getLogger("pytgcalls").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.session
+*.session-journal
+downloads/
+thumbnails/
+logs/
+bot.log
+.env
+*.sqlite
