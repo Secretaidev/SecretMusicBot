@@ -2,7 +2,6 @@
 
 import os
 import sys
-import asyncio
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -62,26 +61,14 @@ async def start_bot():
         except Exception as e:
             LOGGER.warning(f"Log: {e}")
 
-    # Keep alive
-    try:
-        from pyrogram import idle
-        await idle()
-    except (ImportError, AttributeError):
-        LOGGER.info("Using asyncio idle fallback")
-        while True:
-            await asyncio.sleep(3600)
+    LOGGER.info("Listening for messages...")
+
+    # Keep alive forever
+    from pyrogram import idle
+    await idle()
 
 
-if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    try:
-        loop.run_until_complete(start_bot())
-    except KeyboardInterrupt:
-        pass
-    finally:
-        try:
-            loop.run_until_complete(bot_client.stop())
-        except Exception:
-            pass
-        loop.close()
+# CRITICAL: Use bot.run() — NOT asyncio.run()
+# bot.run() uses the SAME event loop that pyrogram's Client was initialized on.
+# asyncio.run() creates a NEW loop, breaking pyrogram's internal dispatcher.
+bot.run(start_bot())
