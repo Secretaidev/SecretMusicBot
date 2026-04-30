@@ -1,20 +1,33 @@
-"""Entrypoint – starts the bot + assistant and keeps the event loop alive.
+"""Entrypoint – Secret Music Bot v3.0
 
-Secret Music Bot v3.0 — The World's Most Advanced Music Bot
+Uses proven pyrogram pattern: handlers → start → idle
 """
 
-import asyncio
 import os
 import sys
+import logging
+import asyncio
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+for d in ("downloads", "thumbnails", "logs"):
+    os.makedirs(d, exist_ok=True)
+
+from pyrogram import idle, filters
 from utils.logger import LOGGER
 from config import API_ID, API_HASH, BOT_TOKEN, BOT_NAME, BOT_VERSION, LOG_GROUP
+from client.client import bot_client
 
-# ── Import plugins at module level so handlers register on the Client ──
-# This MUST happen before bot.start() — pyrogram registers handlers
-# on the Client object, and start() begins polling for updates.
+bot = bot_client.bot
+
+# ═══ CATCH-ALL DEBUG HANDLER (register first) ═══
+@bot.on_message(filters.command(["alive", "ping"]) & ~filters.edited)
+async def alive_handler(client, message):
+    """Simple test — if this doesn't work, pyrogram itself is broken."""
+    await message.reply_text(f"✅ **{BOT_NAME}** is alive! v{BOT_VERSION}")
+
+
+# ═══ Load all plugin handlers ═══
 import plugins.start
 import plugins.play
 import plugins.controls
@@ -32,78 +45,49 @@ import plugins.inline
 import plugins.radio
 import plugins.spotify_handler
 
-# Import client AFTER plugins so all handlers are registered
-from client.client import bot_client
-
-BANNER = f"""
-╔══════════════════════════════════════════════════╗
-║           ✨ {BOT_NAME} v{BOT_VERSION} ✨           ║
-║        The World's Most Advanced Music Bot        ║
-╠══════════════════════════════════════════════════╣
-║  🎵 YouTube • Spotify • JioSaavn • SoundCloud     ║
-║  📻 Live Radio • 🎛 Audio Effects • 📜 Playlists  ║
-║  🔁 Loop • 🔀 Shuffle • ❤️ Favourites • 📊 Stats  ║
-║  📥 Download Songs • 🔍 Inline Search             ║
-╚══════════════════════════════════════════════════╝
-"""
+LOGGER.info("All 16 plugins loaded.")
 
 
 async def main():
     if API_ID == 0 or not API_HASH or not BOT_TOKEN:
-        LOGGER.critical("API_ID, API_HASH and BOT_TOKEN must be set!")
+        LOGGER.critical("Set API_ID, API_HASH, BOT_TOKEN!")
         sys.exit(1)
 
-    for d in ("downloads", "thumbnails", "logs"):
-        os.makedirs(d, exist_ok=True)
-
-    # Start all clients — handlers already registered above
+    # Start everything
     await bot_client.start()
 
-    # Register stream-end handler now that PyTgCalls is started
-    from plugins.play import _register_stream_handler
-    _register_stream_handler()
+    # Register stream handler after PyTgCalls init
+    try:
+        from plugins.play import _register_stream_handler
+        _register_stream_handler()
+    except Exception as e:
+        LOGGER.warning(f"Stream handler: {e}")
 
-    print(BANNER)
-    LOGGER.info(f"Bot: @{bot_client.bot.me.username}")
-
+    LOGGER.info(f"Bot: @{bot.me.username}")
     if bot_client.user:
-        LOGGER.info(f"Assistant: {bot_client.user.me.first_name} ({bot_client.user.me.id})")
-    if bot_client.call:
-        LOGGER.info("PyTgCalls: Ready")
-    else:
-        LOGGER.warning("PyTgCalls: Not available — voice chat features disabled")
+        LOGGER.info(f"Assistant: {bot_client.user.me.first_name}")
+    LOGGER.info(f"VC: {'Ready' if bot_client.call else 'Disabled'}")
+    LOGGER.info(f"{BOT_NAME} v{BOT_VERSION} — Listening!")
 
-    LOGGER.info(f"{BOT_NAME} v{BOT_VERSION} is fully operational!")
-
-    # Send startup log to LOG_GROUP
+    # Log to group
     if LOG_GROUP != 0:
         try:
-            assistant_status = f"✅ {bot_client.user.me.first_name}" if bot_client.user else "❌ Not Connected"
-            vc_status = "✅ Ready" if bot_client.call else "❌ Disabled"
-            await bot_client.bot.send_message(
-                LOG_GROUP,
-                f"🚀 **{BOT_NAME} Started!**\n\n"
-                f"🤖 Bot: @{bot_client.bot.me.username}\n"
-                f"👤 Assistant: {assistant_status}\n"
-                f"🎙 Voice Chat: {vc_status}\n"
-                f"📊 Version: `{BOT_VERSION}`\n"
-                f"📦 Plugins: `16` loaded",
-            )
+            a = f"✅ {bot_client.user.me.first_name}" if bot_client.user else "❌"
+            v = "✅" if bot_client.call else "❌"
+            await bot.send_message(LOG_GROUP,
+                f"🚀 **{BOT_NAME} Online!**\n\n🤖 @{bot.me.username}\n"
+                f"👤 {a}\n🎙 {v}\n📊 `{BOT_VERSION}`")
         except Exception as e:
-            LOGGER.warning(f"Log group message failed: {e}")
+            LOGGER.warning(f"Log: {e}")
 
-    # Keep running
-    try:
-        await asyncio.Event().wait()
-    except (KeyboardInterrupt, asyncio.CancelledError):
-        pass
-    finally:
-        LOGGER.info("Shutting down...")
-        await bot_client.stop()
+    # Use pyrogram's built-in idle — this is the proven way
+    await idle()
+
+    await bot_client.stop()
 
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\n[Shutdown] Bye!")
+    # Show pyrogram dispatcher activity
+    logging.getLogger("pyrogram.dispatcher").setLevel(logging.DEBUG)
+
+    bot.run(main())
