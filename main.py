@@ -21,7 +21,7 @@ from client.client import bot_client
 bot = bot_client.bot
 
 # ═══ CATCH-ALL DEBUG HANDLER (register first) ═══
-@bot.on_message(filters.command(["alive", "ping"]) & ~filters.edited)
+@bot.on_message(filters.command(["alive", "ping"]))
 async def alive_handler(client, message):
     """Simple test — if this doesn't work, pyrogram itself is broken."""
     await message.reply_text(f"✅ **{BOT_NAME}** is alive! v{BOT_VERSION}")
