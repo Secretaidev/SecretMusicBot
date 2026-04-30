@@ -1,0 +1,43 @@
+[build]
+
+[deploy]
+startCommand = "python main.py"
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 10
+
+[variables]
+# ═══════════════════════════════════════
+# REQUIRED — Fill these to run the bot
+# ═══════════════════════════════════════
+API_ID = ""
+API_HASH = ""
+BOT_TOKEN = ""
+SESSION_STRING = ""
+
+# ═══════════════════════════════════════
+# OWNER — Your Telegram user ID
+# ═══════════════════════════════════════
+OWNER_ID = ""
+
+# ═══════════════════════════════════════
+# OPTIONAL — Enhanced features
+# ═══════════════════════════════════════
+MONGO_DB_URI = ""
+LOG_CHANNEL = ""
+MUST_JOIN = ""
+SUPPORT_CHAT = "https://t.me/SecretSupportChat"
+SUDO_USERS = ""
+
+# ═══════════════════════════════════════
+# SPOTIFY — Leave empty to disable
+# ═══════════════════════════════════════
+SPOTIFY_CLIENT_ID = ""
+SPOTIFY_CLIENT_SECRET = ""
+
+# ═══════════════════════════════════════
+# CUSTOMIZATION
+# ═══════════════════════════════════════
+BOT_NAME = "Secret Music Bot"
+MAX_QUEUE_SIZE = "300"
+DEFAULT_QUALITY = "192"
+AUTO_LEAVE_TIMEOUT = "120"
