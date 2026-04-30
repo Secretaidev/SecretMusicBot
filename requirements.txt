@@ -1,7 +1,6 @@
 pyrogram~=2.0.106
 tgcrypto
-pytgcalls
-tgcalls==3.0.0.dev6
+py-tgcalls
 youtube-search-python
 yt-dlp
 aiohttp
@@ -10,4 +9,9 @@ ffmpeg-python
 pillow
 psutil
 motor
+spotipy
+rapidfuzz
+mutagen
+cachetools
+python-dotenv
 uvloop; sys_platform != 'win32'

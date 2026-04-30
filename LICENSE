@@ -1,0 +1,95 @@
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) 2024-2026 Secretaidev <https://github.com/Secretaidev>
+
+Secret Music Bot — The Most Advanced Telegram Music Bot
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+                    TERMS AND CONDITIONS
+
+0. Definitions.
+
+"This License" refers to version 3 of the GNU General Public License.
+
+"The Program" refers to Secret Music Bot, including all source code,
+documentation, and associated files in this repository.
+
+"You" refers to any person who receives, modifies, or distributes
+copies of the Program.
+
+1. Source Code.
+
+You may copy and distribute verbatim copies of the Program's source
+code as you receive it, provided that you conspicuously and
+appropriately publish on each copy an appropriate copyright notice
+and disclaimer of warranty; keep intact all the notices that refer
+to this License and to the absence of any warranty; and give any
+other recipients of the Program a copy of this License along with
+the Program.
+
+2. Modifications.
+
+You may modify your copy of the Program, thus forming a work based
+on the Program, and copy and distribute such modifications under the
+terms of Section 1 above, provided that you also meet all of these
+conditions:
+
+  a) You must cause the modified files to carry prominent notices
+     stating that you changed the files and the date of any change.
+
+  b) You must cause any work that you distribute or publish, that in
+     whole or in part contains or is derived from the Program, to be
+     licensed as a whole at no charge to all third parties under the
+     terms of this License.
+
+  c) You must retain all original copyright notices and credits to
+     the original developer (Secretaidev / @its_me_secret).
+
+3. Distribution.
+
+You may copy and distribute the Program in any medium, provided that
+you conspicuously and appropriately publish on each copy an appropriate
+copyright notice. You must give the recipients all the rights that you
+have under this License.
+
+4. No Warranty.
+
+THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW. THE PROGRAM IS PROVIDED "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE
+OF THE PROGRAM IS WITH YOU.
+
+5. Limitation of Liability.
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW WILL THE COPYRIGHT
+HOLDER BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL,
+INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR
+INABILITY TO USE THE PROGRAM.
+
+6. Additional Terms.
+
+  a) This software must not be used for any illegal purpose.
+  b) Credit to the original developer must be maintained in all
+     forks and derivative works.
+  c) Commercial use requires explicit written permission from the
+     copyright holder.
+
+END OF TERMS AND CONDITIONS
+
+For the full text of the GNU GPL v3, see:
+https://www.gnu.org/licenses/gpl-3.0.en.html
